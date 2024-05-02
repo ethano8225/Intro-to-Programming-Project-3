@@ -4,7 +4,11 @@ import random
 
 class Pixel:
     color=['black','white','yellow','red','blue','green','orange','purple','brown','cyan']
-    
+    def __init__(self,canvas,num,num2,nrow,ncol,scalaze,sthn):
+        self.canvas = Canvas(canvas)
+        self. ??? = num
+        self. ???? = num2
+
     ### to complete        
     
 
