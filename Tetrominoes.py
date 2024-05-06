@@ -5,13 +5,16 @@ import numpy as np
 
 
 class Tetrominoes:
-    def __init__(self, canvas, nrow, ncol, scale, color=2, patterns=None):
+    def __init__(self, canvas, nrow, ncol, scale, color="yellow", patterns=None):
         self.canvas = canvas
         self.nrow = nrow
         self.ncol = ncol
         self.scale = scale
         self.color = color
-        self.patterns = patterns or [np.zeros((3, 3), dtype=int)]
+        if patterns is None:
+            patterns = [np.array([[2, 2, 2], [2, 0, 2], [2, 2, 2]], dtype=int)]
+
+        self.patterns = patterns
         self.nbpattern = len(self.patterns)
         self.h, self.w = self.patterns[0].shape
         self.name = "Basic"
