@@ -72,9 +72,6 @@ class Grid:
         # Implement row flushing animation and matrix shifting here
         pass  # Placeholder for implementation
 
-root = Tk()
-grid = Grid(root, 20, 20, 30)  # Example grid size: 20x20, scale: 30
-root.mainloop()
 
 
 #########################################################
