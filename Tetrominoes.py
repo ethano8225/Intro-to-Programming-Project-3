@@ -4,14 +4,43 @@ import time, random
 import numpy as np
 
 
-
 class Tetrominoes:
+    def __init__(self, canvas, nrow, ncol, scale, color=2, patterns=None):
+        self.canvas = canvas
+        self.nrow = nrow
+        self.ncol = ncol
+        self.scale = scale
+        self.color = color
+        self.patterns = patterns or [np.zeros((3, 3), dtype=int)]
+        self.nbpattern = len(self.patterns)
+        self.h, self.w = self.patterns[0].shape
+        self.name = "Basic"
+        self.i = 0
+        self.j = 0
+        self.current_pattern = 0
+        self.pixels = []
 
-    ## to complete
+    def activate(self, i=None, j=None):
+        self.i = i if i is not None else 0
+        self.j = j if j is not None else random.randint(0, self.ncol - self.w)
+        self.pixels = []
+        for i in range(self.h):
+            for j in range(self.w):
+                if self.patterns[self.current_pattern][i][j] != 0:
+                    pixel = Pixel(self.canvas, self.i + i, self.j + j, self.scale, self.color)
+                    self.pixels.append(pixel)
 
+    def delete(self):
+        for pixel in self.pixels:
+            pixel.erase()
 
+    def rotate(self):
+        self.current_pattern = (self.current_pattern + 1) % self.nbpattern
+        self.delete()
+        self.activate(self.i, self.j)
 
-
+    def get_pattern(self):
+        return self.patterns[self.current_pattern]
 
 
 
@@ -32,11 +61,71 @@ class Tetrominoes:
 ############# All Child Classes #########################
 #########################################################
 
+class TShape(Tetrominoes):
+    def __init__(self, canvas, nrow, ncol, scale):
+        patterns = [
+            np.array([[0, 3, 0], [3, 3, 3], [0, 3, 0]], dtype=int)
+        ]
+        super().__init__(canvas, nrow, ncol, scale, color="red", patterns=patterns)
 
 
-    ## to complete
+class TripodA(Tetrominoes):
+    def __init__(self, canvas, nrow, ncol, scale):
+        patterns = [
+            np.array([[0, 0, 0], [2, 2, 2], [2, 0, 0]], dtype=int),
+            np.array([[2, 2, 0], [0, 2, 0], [0, 2, 0]], dtype=int),
+            np.array([[0, 0, 0], [0, 0, 2], [2, 2, 2]], dtype=int),
+            np.array([[0, 2, 0], [0, 2, 0], [2, 2, 0]], dtype=int)
+        ]
+        super().__init__(canvas, nrow, ncol, scale, color="blue", patterns=patterns)
 
 
+class TripodB(Tetrominoes):
+    def __init__(self, canvas, nrow, ncol, scale):
+        patterns = [
+            np.array([[0, 0, 0], [1, 1, 1], [0, 0, 1]], dtype=int),
+            np.array([[0, 1, 0], [0, 1, 0], [1, 1, 0]], dtype=int),
+            np.array([[1, 0, 0], [1, 1, 1], [0, 0, 0]], dtype=int),
+            np.array([[0, 1, 1], [0, 1, 0], [0, 1, 0]], dtype=int)
+        ]
+        super().__init__(canvas, nrow, ncol, scale, color="green", patterns=patterns)
+
+
+class SnakeA(Tetrominoes):
+    def __init__(self, canvas, nrow, ncol, scale):
+        patterns = [
+            np.array([[0, 1, 1], [1, 1, 0], [0, 0, 0]], dtype=int),
+            np.array([[0, 1, 0], [0, 1, 1], [0, 0, 1]], dtype=int)
+        ]
+        super().__init__(canvas, nrow, ncol, scale, color="orange", patterns=patterns)
+
+
+class SnakeB(Tetrominoes):
+    def __init__(self, canvas, nrow, ncol, scale):
+        patterns = [
+            np.array([[1, 1, 0], [0, 1, 1], [0, 0, 0]], dtype=int),
+            np.array([[0, 0, 1], [0, 1, 1], [0, 1, 0]], dtype=int)
+        ]
+        super().__init__(canvas, nrow, ncol, scale, color="purple", patterns=patterns)
+
+
+class Cube(Tetrominoes):
+    def __init__(self, canvas, nrow, ncol, scale):
+        patterns = [
+            np.array([[1, 1, 1], [1, 1, 1], [1, 1, 1]], dtype=int),
+        ]
+        super().__init__(canvas, nrow, ncol, scale, color="brown", patterns=patterns)
+
+
+class Pencil(Tetrominoes):
+    def __init__(self, canvas, nrow, ncol, scale):
+        patterns = [
+            np.array([[0, 0, 1], [0, 1, 1], [0, 0, 1]], dtype=int),
+            np.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]], dtype=int),
+            np.array([[1, 0, 0], [1, 1, 1], [1, 0, 0]], dtype=int),
+            np.array([[1, 1, 0], [0, 1, 1], [0, 1, 0]], dtype=int)
+        ]
+        super().__init__(canvas, nrow, ncol, scale, color="cyan", patterns=patterns)
 
 
 #########################################################
