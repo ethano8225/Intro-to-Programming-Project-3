@@ -5,7 +5,7 @@ import numpy as np
 
 
 class Tetrominoes:
-    def __init__(self, canvas, nrow, ncol, scale, color="yellow", patterns=None):
+    def __init__(self, canvas, nrow, ncol, scale, color=1, patterns=None):
         self.canvas = canvas
         self.nrow = nrow
         self.ncol = ncol
@@ -30,12 +30,12 @@ class Tetrominoes:
         for i in range(self.h):
             for j in range(self.w):
                 if self.patterns[self.current_pattern][i][j] != 0:
-                    pixel = Pixel(self.canvas, self.i + i, self.j + j, self.scale, self.color)
+                    pixel = Pixel(self.canvas, self.i + i, self.j + j, self.nrow, self.ncol, self.scale, self.color)
                     self.pixels.append(pixel)
 
     def delete(self):
         for pixel in self.pixels:
-            pixel.erase()
+            pixel.delete()
 
     def rotate(self):
         self.current_pattern = (self.current_pattern + 1) % self.nbpattern

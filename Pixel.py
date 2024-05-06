@@ -15,11 +15,14 @@ class Pixel:
         self.nrow=nrow
         self.ncol=ncol
         self.scale=scale
-        self.clr=color[colorid]
+        if type(colorid) == int:
+            self.clr=color[colorid]
+        else:
+            self.clr = colorid
         self.vector=vector
         if self.i > self.nrow:
             self.i=self.i%self.nrow
-        if self.j % self.ncol:
+        if self.j % int(self.ncol):
             self.j=self.j%self.ncol
         self.pix = canvas.create_rectangle(self.j*self.scale,self.i*self.scale,self.j*self.scale+self.scale,self.i*self.scale+self.scale,fill=str(self.clr),outline='white')
         
