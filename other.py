@@ -1,2 +1,2 @@
 import sys
-!{sys.executable} python -m ensurepip --upgrade
+!{sys.exec} python -m ensurepip --upgrade
