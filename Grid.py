@@ -14,10 +14,16 @@ class Grid:
         self.scale = scale
         self.pixels = []
         self.matrix = np.zeros((nrow, ncol), dtype=int)
-        self.random_pixels(25, 1)  # initial random pixels
+        self.draw_gridlines()
 
         self.canvas.bind("<Button-1>", self.addxy)
         self.canvas.bind("<Button-3>", self.delxy)
+
+    def draw_gridlines(self):
+        for i in range(self.nrow):
+            self.canvas.create_line(0, i*self.scale, self.ncol*self.scale, i*self.scale, fill="gray")
+        for j in range(self.ncol):
+            self.canvas.create_line(j*self.scale, 0, j*self.scale, self.nrow*self.scale, fill="gray")
 
     def addij(self, i, j, c):
         if c > 0:  # if color is not black
@@ -69,7 +75,6 @@ class Grid:
 root = Tk()
 grid = Grid(root, 20, 20, 30)  # Example grid size: 20x20, scale: 30
 root.mainloop()
-
 
 
 #########################################################
