@@ -5,7 +5,7 @@ import numpy as np
 
 
 class Tetrominoes:
-    def __init__(self, canvas, nrow, ncol, scale, color=1, patterns=None):
+    def __init__(self, canvas, nrow, ncol, scale, color=2, patterns=None):
         self.canvas = canvas
         self.nrow = nrow
         self.ncol = ncol
@@ -67,7 +67,7 @@ class Tetrominoes:
 class TShape(Tetrominoes):
     def __init__(self, canvas, nrow, ncol, scale):
         patterns = [
-            np.array([[0, 3, 0], [3, 3, 3], [0, 3, 0]], dtype=int)
+            np.array([[0, 1, 0], [0, 1, 0], [1, 1, 1]], dtype=int)
         ]
         super().__init__(canvas, nrow, ncol, scale, color="red", patterns=patterns)
 
@@ -75,7 +75,7 @@ class TShape(Tetrominoes):
 class TripodA(Tetrominoes):
     def __init__(self, canvas, nrow, ncol, scale):
         patterns = [
-            np.array([[0, 0, 0], [2, 2, 2], [2, 0, 0]], dtype=int),
+            np.array([[0, 1, 0], [0, 1, 0], [1, 0, 1]], dtype=int),
             np.array([[2, 2, 0], [0, 2, 0], [0, 2, 0]], dtype=int),
             np.array([[0, 0, 0], [0, 0, 2], [2, 2, 2]], dtype=int),
             np.array([[0, 2, 0], [0, 2, 0], [2, 2, 0]], dtype=int)
@@ -86,7 +86,7 @@ class TripodA(Tetrominoes):
 class TripodB(Tetrominoes):
     def __init__(self, canvas, nrow, ncol, scale):
         patterns = [
-            np.array([[0, 0, 0], [1, 1, 1], [0, 0, 1]], dtype=int),
+            np.array([[0, 1, 0], [1, 0, 1], [1, 0, 1]], dtype=int),
             np.array([[0, 1, 0], [0, 1, 0], [1, 1, 0]], dtype=int),
             np.array([[1, 0, 0], [1, 1, 1], [0, 0, 0]], dtype=int),
             np.array([[0, 1, 1], [0, 1, 0], [0, 1, 0]], dtype=int)
@@ -97,7 +97,7 @@ class TripodB(Tetrominoes):
 class SnakeA(Tetrominoes):
     def __init__(self, canvas, nrow, ncol, scale):
         patterns = [
-            np.array([[0, 1, 1], [1, 1, 0], [0, 0, 0]], dtype=int),
+            np.array([[1, 1, 0], [0, 1, 0], [0, 1, 1]], dtype=int),
             np.array([[0, 1, 0], [0, 1, 1], [0, 0, 1]], dtype=int)
         ]
         super().__init__(canvas, nrow, ncol, scale, color="orange", patterns=patterns)
@@ -106,7 +106,7 @@ class SnakeA(Tetrominoes):
 class SnakeB(Tetrominoes):
     def __init__(self, canvas, nrow, ncol, scale):
         patterns = [
-            np.array([[1, 1, 0], [0, 1, 1], [0, 0, 0]], dtype=int),
+            np.array([[0, 1, 1], [0, 1, 0], [1, 1, 0]], dtype=int),
             np.array([[0, 0, 1], [0, 1, 1], [0, 1, 0]], dtype=int)
         ]
         super().__init__(canvas, nrow, ncol, scale, color="purple", patterns=patterns)
@@ -123,7 +123,7 @@ class Cube(Tetrominoes):
 class Pencil(Tetrominoes):
     def __init__(self, canvas, nrow, ncol, scale):
         patterns = [
-            np.array([[0, 0, 1], [0, 1, 1], [0, 0, 1]], dtype=int),
+            np.array([[0, 0, 1], [0, 0, 1], [0, 0, 1]], dtype=int),
             np.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]], dtype=int),
             np.array([[1, 0, 0], [1, 1, 1], [1, 0, 0]], dtype=int),
             np.array([[1, 1, 0], [0, 1, 1], [0, 1, 0]], dtype=int)
