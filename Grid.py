@@ -5,13 +5,70 @@ import random, time
 
 
 class Grid:
-    
+    def __init__(self, root, nrow, ncol, scale):
+        self.root = root
+        self.canvas = Canvas(root, width=ncol*scale, height=nrow*scale, bg='black')
+        self.canvas.pack()
+        self.nrow = nrow
+        self.ncol = ncol
+        self.scale = scale
+        self.pixels = []
+        self.matrix = np.zeros((nrow, ncol), dtype=int)
+        self.random_pixels(25, 1)  # initial random pixels
 
+        self.canvas.bind("<Button-1>", self.addxy)
+        self.canvas.bind("<Button-3>", self.delxy)
 
-### To complete
+    def addij(self, i, j, c):
+        if c > 0:  # if color is not black
+            self.matrix[i, j] = c
+            pixel = Pixel(self.canvas, i, j, self.nrow, self.ncol, self.scale, colorid=c)
+            self.pixels.append(pixel)
 
+    def random_pixels(self, num_pixels, color):
+        for _ in range(num_pixels):
+            i = random.randint(0, self.nrow - 1)
+            j = random.randint(0, self.ncol - 1)
+            self.addij(i, j, color)
 
+    def addxy(self, event):
+        j = event.x // self.scale
+        i = event.y // self.scale
+        color = self.matrix[i, j]
+        print(f"insert {event.x} {event.y} {i} {j} {color}")
+        self.addij(i, j, 1)
 
+    def delij(self, i, j):
+        color = self.matrix[i, j]
+        if color > 0:  # if color is not black
+            self.matrix[i, j] = 0
+            self.reset()
+        else:
+            self.flush_row(i)
+
+    def delxy(self, event):
+        j = event.x // self.scale
+        i = event.y // self.scale
+        color = self.matrix[i, j]
+        print(f"delete {event.x} {event.y} {i} {j} {color}")
+        self.delij(i, j)
+
+    def reset(self):
+        for pixel in self.pixels:
+            pixel.delete()
+        self.pixels.clear()
+        for i in range(self.nrow):
+            for j in range(self.ncol):
+                if self.matrix[i, j] > 0:
+                    self.addij(i, j, self.matrix[i, j])
+
+    def flush_row(self, i):
+        # Implement row flushing animation and matrix shifting here
+        pass  # Placeholder for implementation
+
+root = Tk()
+grid = Grid(root, 20, 20, 30)  # Example grid size: 20x20, scale: 30
+root.mainloop()
 
 
 

@@ -69,17 +69,10 @@ class Pixel:
         self.canvas.delete(self.pix)
 
     def __str__(self):
+        
         return "(%s,%s) %s"%(self.i,self.j,self.clr)
 
 
-
-
-
-
-
-
-
-        
 #################################################################
 ########## TESTING FUNCTION
 #################################################################
@@ -218,4 +211,3 @@ def main():
         
 if __name__=="__main__":
     main()
-
