@@ -43,13 +43,24 @@ class Tetrominoes:
         self.activate(self.i, self.j)
 
     def up(self):
-        pass
+        self.i -= 1
+        self.delete()
+        self.activate(self.i, self.j)
+
     def down(self):
-        pass
+        self.i += 1
+        self.delete()
+        self.activate(self.i, self.j)
+
     def left(self):
-        pass
+        self.j -= 1
+        self.delete()
+        self.activate(self.i, self.j)
+
     def right(self):
-        pass
+        self.j += 1
+        self.delete()
+        self.activate(self.i, self.j)
     
     def get_pattern(self):
         return self.patterns[self.current_pattern]
