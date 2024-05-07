@@ -66,9 +66,24 @@ class Grid:
                     self.addij(i, j, self.matrix[i, j])
 
     def flush_row(self, i):
-        
+        left = 0
+        right= 29
+        self.addij(i,left,7), self.addij(i,left+1,7), self.addij(i,left+2,7)     #spawn in clear row
+        self.addij(i,right,7), self.addij(i,right-1,7), self.addij(i,right-2,7)
+        time.sleep(1)
+        #z = 0
+        #for z in range(14):
+        #    time.sleep(.1)
+        #    left, right = self.move(left,right,i)
         # Implement row flushing animation and matrix shifting here
-        pass  # Placeholder for implementation
+    def move(self,l,r,i):
+        self.delij(i,l), self.delij(i,r)
+        l = l+1
+        r = r-1
+        self.addij(i,l,7),self.addij(i,r,7)
+        time.sleep(1)
+        return l,r
+
 
 #########################################################
 ############# Main code #################################
