@@ -24,7 +24,7 @@ class Pixel:
             self.i=self.i%self.nrow
         if self.j % int(self.ncol):
             self.j=self.j%self.ncol
-        self.pix = canvas.create_rectangle(self.j*self.scale,self.i*self.scale,self.j*self.scale+self.scale,self.i*self.scale+self.scale,fill=str(self.clr),outline='white')
+        self.pix = canvas.create_rectangle(self.j*self.scale,self.i*self.scale,self.j*self.scale+self.scale,self.i*self.scale+self.scale,fill=str(self.clr),outline='black')
         
     def right(self):
         self.vector=[0,1]
@@ -72,7 +72,7 @@ class Pixel:
         self.canvas.delete(self.pix)
 
     def __str__(self):
-        
+
         return "(%s,%s) %s"%(self.i,self.j,self.clr)
 
 
