@@ -66,6 +66,7 @@ class Grid:
                     self.addij(i, j, self.matrix[i, j])
 
     def flush_row(self, i):
+        
         # Implement row flushing animation and matrix shifting here
         pass  # Placeholder for implementation
 

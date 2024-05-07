@@ -42,6 +42,15 @@ class Tetrominoes:
         self.delete()
         self.activate(self.i, self.j)
 
+    def up(self):
+        pass
+    def down(self):
+        pass
+    def left(self):
+        pass
+    def right(self):
+        pass
+    
     def get_pattern(self):
         return self.patterns[self.current_pattern]
 
