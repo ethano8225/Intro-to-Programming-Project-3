@@ -8,21 +8,17 @@ class Pixel:
     ### to complete        
     
     def __init__(self,canvas,i,j,nrow,ncol,scale=20,colorid=1,vector=[0,0]) -> None:
-        color=['black','white','yellow','red','blue','green','orange','purple','brown','cyan']
         self.canvas=canvas
         self.i=i
         self.j=j
         self.nrow=nrow
         self.ncol=ncol
         self.scale=scale
-        if type(colorid) == int:
-            self.clr=color[colorid]
-        else:
-            self.clr = colorid
+        self.clr=Pixel.color[colorid]
         self.vector=vector
         if self.i > self.nrow:
             self.i=self.i%self.nrow
-        if self.j % int(self.ncol):
+        if self.j % self.ncol:
             self.j=self.j%self.ncol
         self.pix = canvas.create_rectangle(self.j*self.scale,self.i*self.scale,self.j*self.scale+self.scale,self.i*self.scale+self.scale,fill=str(self.clr),outline='black')
         

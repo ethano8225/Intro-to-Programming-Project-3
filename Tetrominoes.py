@@ -3,7 +3,6 @@ from Pixel import Pixel
 import time, random
 import numpy as np
 
-
 class Tetrominoes:
     def __init__(self, canvas, nrow, ncol, scale, color=2, patterns=None):
         self.canvas = canvas
@@ -11,6 +10,7 @@ class Tetrominoes:
         self.ncol = ncol
         self.scale = scale
         self.color = color
+        print(patterns)
         if patterns is None:
             patterns = [np.array([[2, 2, 2], [2, 0, 2], [2, 2, 2]], dtype=int)]
 
@@ -56,10 +56,8 @@ class Tetrominoes:
         t5=SnakeB(canv,nrow,ncol,scale)
         t6=Cube(canv,nrow,ncol,scale)
         t7=Pencil(canv,nrow,ncol,scale)        
-        return random.choice([t1,t2,t3,t4,t5,t6,t7,t7]) #a bit more change to obtain a pencil shape
+        return random.choice([t1,t2,t3,t4,t5,t6,t7,t7])
         
-
-
 #########################################################
 ############# All Child Classes #########################
 #########################################################
@@ -67,77 +65,82 @@ class Tetrominoes:
 class TShape(Tetrominoes):
     def __init__(self, canvas, nrow, ncol, scale):
         patterns = [
-            np.array([[0, 1, 0], [0, 1, 0], [1, 1, 1]], dtype=int)
+            np.array([[0, 1, 0], [0, 1, 0], [1, 1, 1]], dtype=int),
+            np.array([[1, 0, 0], [1, 1, 1], [1, 0, 0]], dtype=int),
+            np.array([[1, 1, 1], [0, 1, 0], [0, 1, 0]], dtype=int),
+            np.array([[0, 0, 1], [1, 1, 1], [0, 0, 1]], dtype=int)
         ]
-        super().__init__(canvas, nrow, ncol, scale, color="red", patterns=patterns)
-
+        super().__init__(canvas, nrow, ncol, scale, color=3, patterns=patterns)
+        self.name = "TShape"
 
 class TripodA(Tetrominoes):
     def __init__(self, canvas, nrow, ncol, scale):
         patterns = [
-            np.array([[0, 1, 0], [0, 1, 0], [1, 0, 1]], dtype=int),
-            np.array([[2, 2, 0], [0, 2, 0], [0, 2, 0]], dtype=int),
-            np.array([[0, 0, 0], [0, 0, 2], [2, 2, 2]], dtype=int),
-            np.array([[0, 2, 0], [0, 2, 0], [2, 2, 0]], dtype=int)
+            np.array([[0,2,0], [0,2,0], [2,0,2]], dtype=int),
+            np.array([[2,0,0], [0,2,2], [2,0,0]], dtype=int),
+            np.array([[2,0,2], [0,2,0], [0,2,0]], dtype=int),
+            np.array([[0,0,2], [2,2,0], [0,0,2]], dtype=int)
         ]
-        super().__init__(canvas, nrow, ncol, scale, color="blue", patterns=patterns)
-
+        super().__init__(canvas, nrow, ncol, scale, color=4, patterns=patterns)
+        self.name = "TripodA"
 
 class TripodB(Tetrominoes):
     def __init__(self, canvas, nrow, ncol, scale):
         patterns = [
             np.array([[0, 1, 0], [1, 0, 1], [1, 0, 1]], dtype=int),
-            np.array([[0, 1, 0], [0, 1, 0], [1, 1, 0]], dtype=int),
-            np.array([[1, 0, 0], [1, 1, 1], [0, 0, 0]], dtype=int),
-            np.array([[0, 1, 1], [0, 1, 0], [0, 1, 0]], dtype=int)
+            np.array([[1, 1, 0], [0, 0, 1], [1, 1, 0]], dtype=int),
+            np.array([[1, 0, 1], [1, 0, 1], [0, 1, 0]], dtype=int),
+            np.array([[0, 1, 1], [1, 0, 0], [0, 1, 1]], dtype=int)
         ]
-        super().__init__(canvas, nrow, ncol, scale, color="green", patterns=patterns)
-
+        super().__init__(canvas, nrow, ncol, scale, color=5, patterns=patterns)
+        self.name = "TripodB"
 
 class SnakeA(Tetrominoes):
     def __init__(self, canvas, nrow, ncol, scale):
         patterns = [
             np.array([[1, 1, 0], [0, 1, 0], [0, 1, 1]], dtype=int),
-            np.array([[0, 1, 0], [0, 1, 1], [0, 0, 1]], dtype=int)
+            np.array([[0, 0, 1], [1, 1, 1], [1, 0, 0]], dtype=int)
         ]
-        super().__init__(canvas, nrow, ncol, scale, color="orange", patterns=patterns)
-
+        super().__init__(canvas, nrow, ncol, scale, color=6, patterns=patterns)
+        self.name = "SnakeA"
 
 class SnakeB(Tetrominoes):
     def __init__(self, canvas, nrow, ncol, scale):
         patterns = [
             np.array([[0, 1, 1], [0, 1, 0], [1, 1, 0]], dtype=int),
-            np.array([[0, 0, 1], [0, 1, 1], [0, 1, 0]], dtype=int)
+            np.array([[1, 0, 0], [1, 1, 1], [0, 0, 1]], dtype=int)
         ]
-        super().__init__(canvas, nrow, ncol, scale, color="purple", patterns=patterns)
-
+        super().__init__(canvas, nrow, ncol, scale, color=7, patterns=patterns)
+        self.name = "SnakeB"
 
 class Cube(Tetrominoes):
     def __init__(self, canvas, nrow, ncol, scale):
         patterns = [
             np.array([[1, 1, 1], [1, 1, 1], [1, 1, 1]], dtype=int),
+            np.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]], dtype=int),
+            np.array([[1, 0, 1], [0, 1, 0], [1, 0, 1]], dtype=int)
         ]
-        super().__init__(canvas, nrow, ncol, scale, color="brown", patterns=patterns)
-
+        super().__init__(canvas, nrow, ncol, scale, color=8, patterns=patterns)
+        self.name = "Cube"
 
 class Pencil(Tetrominoes):
     def __init__(self, canvas, nrow, ncol, scale):
         patterns = [
             np.array([[0, 0, 1], [0, 0, 1], [0, 0, 1]], dtype=int),
-            np.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]], dtype=int),
-            np.array([[1, 0, 0], [1, 1, 1], [1, 0, 0]], dtype=int),
-            np.array([[1, 1, 0], [0, 1, 1], [0, 1, 0]], dtype=int)
+            np.array([[0, 0, 0], [0, 0, 0], [1, 1, 1]], dtype=int),
+            np.array([[1, 0, 0], [1, 0, 0], [1, 0, 0]], dtype=int),
+            np.array([[0, 0, 0], [0, 0, 0], [1, 1, 1]], dtype=int)
         ]
-        super().__init__(canvas, nrow, ncol, scale, color="cyan", patterns=patterns)
-
+        super().__init__(canvas, nrow, ncol, scale, color=9, patterns=patterns)
+        self.name = "Pencil"
 
 #########################################################
 ############# Testing Functions #########################
 #########################################################
+
 def delete_all(canvas):
     canvas.delete("all")
     print("Delete All")
-
 
 def test1(canvas,nrow,ncol,scale):
     print("Generate a Tetromino (basic shape)- different options")
@@ -158,8 +161,6 @@ def test1(canvas,nrow,ncol,scale):
     print("  height/width:",tetro2.h,tetro2.w)
     tetro2.activate()        # activate and place at random at the top
     print("  i/j coords:  ",tetro2.i,tetro2.j)
-
-    
     
 def test2(root,canvas,nrow,ncol,scale):
     print("Generate a 'square' Tetromino (with double shape) and rotate")
@@ -180,11 +181,9 @@ def test2(root,canvas,nrow,ncol,scale):
         time.sleep(0.5)
     tetro.delete() # delete tetro (delete every pixels)
 
-
 def rotate_all(tetros): #auxiliary routine
     for t in tetros:
         t.rotate()
-    
        
 def test3(root,canvas,nrow,ncol,scale):
     print("Dancing Tetrominoes")
@@ -210,8 +209,6 @@ def test3(root,canvas,nrow,ncol,scale):
             
     ####### Tkinter binding for this test
     root.bind("<space>",lambda e:rotate_all(tetros))     
-
-    
       
 def test4(root,canvas,nrow,ncol,scale):
     print("Moving Tetromino")
@@ -227,32 +224,27 @@ def test4(root,canvas,nrow,ncol,scale):
 
     tetro.activate()
 
-    
-
 #########################################################
 ############# Main code #################################
 #########################################################
 
 def main():
     
-        ##### create a window, canvas 
-        root = Tk() # instantiate a tkinter window
-        nrow=45
-        ncol=30
-        scale=20
-        canvas = Canvas(root,width=ncol*scale,height=nrow*scale,bg="black") # create a canvas width*height
-        canvas.pack()
+    ##### create a window, canvas 
+    root = Tk() # instantiate a tkinter window
+    nrow=45
+    ncol=30
+    scale=20
+    canvas = Canvas(root,width=ncol*scale,height=nrow*scale,bg="black") # create a canvas width*height
+    canvas.pack()
 
-        ### general binding events to choose a testing function
-        root.bind("1",lambda e:test1(canvas,nrow,ncol,scale))
-        root.bind("2",lambda e:test2(root,canvas,nrow,ncol,scale))
-        root.bind("3",lambda e:test3(root,canvas,nrow,ncol,scale))
-        root.bind("4",lambda e:test4(root,canvas,nrow,ncol,scale))
-        root.bind("<d>",lambda e:delete_all(canvas))
-
-        
-        root.mainloop() # wait until the window is closed        
+    ### general binding events to choose a testing function
+    root.bind("1",lambda e:test1(canvas,nrow,ncol,scale))
+    root.bind("2",lambda e:test2(root,canvas,nrow,ncol,scale))
+    root.bind("3",lambda e:test3(root,canvas,nrow,ncol,scale))
+    root.bind("4",lambda e:test4(root,canvas,nrow,ncol,scale))
+    root.bind("<d>",lambda e:delete_all(canvas))
+    root.mainloop() # wait until the window is closed        
 
 if __name__=="__main__":
     main()
-
