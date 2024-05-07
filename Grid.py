@@ -16,9 +16,6 @@ class Grid:
         self.matrix = np.zeros((nrow, ncol), dtype=int)
         self.draw_gridlines()
 
-        self.canvas.bind("<Button-1>", self.addxy)
-        self.canvas.bind("<Button-3>", self.delxy)
-
     def draw_gridlines(self):
         for i in range(self.nrow):
             self.canvas.create_line(0, i*self.scale, self.ncol*self.scale, i*self.scale, fill="gray")
@@ -72,12 +69,9 @@ class Grid:
         # Implement row flushing animation and matrix shifting here
         pass  # Placeholder for implementation
 
-
-
 #########################################################
 ############# Main code #################################
 #########################################################
-
   
 def main(): 
         
@@ -86,15 +80,12 @@ def main():
         mesh = Grid(root,50,30,20) # instantiate a Grid object
         mesh.random_pixels(25,1) # generate 25 random (white) pixels in the Grid
 
-        
         ####### Tkinter binding mouse actions
-        root.bind("<Button-1>",lambda e:mesh.addxy(e.x,e.y))
-        root.bind("<Button-3>",lambda e:mesh.delxy(e.x,e.y))
-        
+        root.bind("<Button-1>",lambda e:mesh.addxy(e))
+        root.bind("<Button-3>",lambda e:mesh.delxy(e))
 
         root.mainloop() # wait until the window is closed
         
-
 if __name__=="__main__":
     main()
 
