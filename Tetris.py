@@ -15,11 +15,15 @@ class Tetris(Grid):
             self.block.activate()
         else:
             self.block.down()
+        self.stayinplace()
+        
+    def stayinplace(self):
             i, j = self.block.i, self.block.j
 
             # Check if the block is at the bottom or overlapping with another block
-            if i + self.block.h >= self.nrow or self.is_overlapping(i + 1, j):
+            if i + self.block.h >= self.nrow or self.is_overlapping(i+1, j):
                 # Block is in place
+                self.block.color = 1
                 pattern = self.block.get_pattern()
                 self.block.delete()
                 for r in range(self.block.h):
@@ -112,12 +116,7 @@ def main():
     root.bind("<Left>", lambda e: tetris_game.left())
     root.bind("<Right>", lambda e: tetris_game.right())
     root.bind("<p>",lambda e:tetris_game.pause())
-    
-    # Main loop
-    #while not tetris_game.game_over:
-    #    tetris_game.next()
-    #    root.update()
-    #    time.sleep(0.5)
+
     while True:
             if not tetris_game.is_pause(): tetris_game.next()
             root.update()   # update the graphic
