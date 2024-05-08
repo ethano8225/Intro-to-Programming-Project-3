@@ -8,7 +8,7 @@ class Tetris(Grid):
         super().__init__(root, nrow, ncol, scale)
         self.block = None
         self.game_over = False
-
+        self.paused = 0
     def next(self):
         if self.block is None:  # If no block is active
             self.block = Tetrominoes.random_select(self.canvas, self.nrow, self.ncol, self.scale)
@@ -33,6 +33,15 @@ class Tetris(Grid):
 
                 # Reset block
                 self.block = None
+
+    def pause(self):
+        if self.paused == 1:
+            self.paused = 0
+        else:
+            self.paused = 1
+    
+    def is_pause(self):
+        return self.paused
 
     def is_overlapping(self, ii, jj):
         for r in range(3):
@@ -102,14 +111,18 @@ def main():
     root.bind("<Down>", lambda e: tetris_game.down())
     root.bind("<Left>", lambda e: tetris_game.left())
     root.bind("<Right>", lambda e: tetris_game.right())
-
+    root.bind("<p>",lambda e:tetris_game.pause())
     
     # Main loop
-    while not tetris_game.game_over:
-        tetris_game.next()
-        root.update()
-        time.sleep(0.5)
-
+    #while not tetris_game.game_over:
+    #    tetris_game.next()
+    #    root.update()
+    #    time.sleep(0.5)
+    while True:
+            if not tetris_game.is_pause(): tetris_game.next()
+            root.update()   # update the graphic
+            time.sleep(0.25)  # wait few second (simulation)
+            if tetris_game.game_over == True: break
     root.mainloop()
 
 if __name__ == "__main__":
