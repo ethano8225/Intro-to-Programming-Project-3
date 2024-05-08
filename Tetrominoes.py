@@ -65,8 +65,6 @@ class Tetrominoes:
     def get_pattern(self):
         return self.patterns[self.current_pattern]
 
-
-
     @staticmethod
     def random_select(canv,nrow,ncol,scale):
         t1=TShape(canv,nrow,ncol,scale)
