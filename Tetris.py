@@ -25,6 +25,8 @@ class Tetris(Grid):
                 for r in range(self.block.h):
                     for c in range(self.block.w):
                         if pattern[r][c] != 0:
+                            if i+r > 19:
+                                i = 18
                             self.add_ij(i + r, j + c, pattern[r][c])
                 self.flush_rows()
                 self.check_game_over()
@@ -40,13 +42,13 @@ class Tetris(Grid):
                         return True
         return False
 
-    def flush_rows(self):
-        rows_to_flush = []
+    def flush_rows(self, row=0):
+        row_to_flush = []
         for i in range(self.nrow):
             if 0 not in self.Integer[i]:
-                rows_to_flush.append(i)
-        for row in rows_to_flush:
-            self.flush_rows(row)
+                row_to_flush.append(i)
+        for row in row_to_flush:
+            self.flush(row)
 
     def check_game_over(self):
         if any(self.Integer[i][j] != 0 for i in range(3) for j in range(self.ncol)):
@@ -62,13 +64,33 @@ class Tetris(Grid):
 
     def left(self):
         if self.block is not None:
-            if self.block.j > 0 and not self.is_overlapping(self.block.i, self.block.j - 1):
+            if self.block.j > 0:
+                for r in range(self.block.h):
+                    for c in range(self.block.w):
+                        if self.block.patterns[self.block.current_pattern][r][c] != 0:
+                            if self.is_overlapping(self.block.i + r, self.block.j + c-1):
+                                return  # Don't move if overlap
                 self.block.left()
 
     def right(self):
         if self.block is not None:
-            if self.block.j + self.block.w < self.ncol and not self.is_overlapping(self.block.i, self.block.j + 1):
+            if self.block.j + self.block.w < self.ncol:
+                for r in range(self.block.h):
+                    for c in range(self.block.w):
+                        if self.block.patterns[self.block.current_pattern][r][c] != 0:
+                            if self.is_overlapping(self.block.i + r, self.block.j + c+1):
+                                return  # Don't move if overlap
                 self.block.right()
+
+#    def left(self):
+#        if self.block is not None:
+#            if self.block.j > 0 and not self.is_overlapping(self.block.i, self.block.j - 1):
+#                self.block.left()
+#
+#    def right(self):
+#        if self.block is not None:
+#            if self.block.j + self.block.w < self.ncol and not self.is_overlapping(self.block.i, self.block.j + 1):
+#                self.block.right()
 
 # Testing the Tetris class
 def main():
