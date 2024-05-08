@@ -96,7 +96,7 @@ class Snake(Grid):
                 
         if not fruit_left:
             self.__game_over = True
-            text= self.canvas.create_text(self.ncol*self.scale//2,self.nrow*self.scale//2,text="YOU WINNER",fill="green",font=("Comic Sans", 25, "bold"))
+            text= self.canvas.create_text(self.ncol*self.scale//2,self.nrow*self.scale//2,text="YOU WON",fill="yellow",font=("Comic Sans", 25, "bold"))
         for piece in range(len(self.snake)-1):
             if self.snake[piece].i == next_i and self.snake[piece].j == next_j:
                 

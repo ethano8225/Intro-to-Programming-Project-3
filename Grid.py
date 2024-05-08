@@ -31,9 +31,9 @@ class Grid:
     def add_ij(self,i,j,c):
         if c>0:
             self.pixelist.append(Pixel(self.canvas,i,j,self.nrow,self.ncol,self.scale,c))
-            if __name__=="Grid":
-                if i > 19:
-                    i = 19
+            #if self.nrow==20:
+            #    if i > 19:
+            #        i = 19
             self.Integer[i,j] = c
 
     def delxy(self,x,y):
@@ -73,7 +73,7 @@ class Grid:
                         for p in pixels:
                                 p.next()
                         self.root.update()
-                        time.sleep(0.02)
+                        time.sleep(0.01)
                 self.Integer[1:i+1,:]=self.Integer[0:i,:]
                 self.Integer[0,:] = 0
                 self.reset()

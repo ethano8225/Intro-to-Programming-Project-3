@@ -16,7 +16,7 @@ class Tetris(Grid):
         else:
             self.block.down()
         self.stayinplace()
-        
+
     def stayinplace(self):
             i, j = self.block.i, self.block.j
 

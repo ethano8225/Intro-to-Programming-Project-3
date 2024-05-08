@@ -23,7 +23,7 @@ class Pixel:
             self.j=self.j%self.ncol
         self.pix = canvas.create_rectangle(self.j*self.scale,self.i*self.scale,self.j*self.scale+self.scale,self.i*self.scale+self.scale,fill=str(self.clr),outline='black')
         if self.clr == "black":
-            self.pix = canvas.create_rectangle(self.j*self.scale,self.i*self.scale,self.j*self.scale+self.scale,self.i*self.scale+self.scale,fill=str(self.clr),outline='white')
+            self.pix = canvas.create_rectangle(self.j*self.scale,self.i*self.scale,self.j*self.scale+self.scale,self.i*self.scale+self.scale,fill=str(self.clr),outline='gray')
     def right(self):
         self.vector=[0,1]
         
