@@ -8,18 +8,18 @@ class Tetrominoes:
         self.canvas = canvas
         self.nrow = nrow
         self.ncol = ncol
-        self.scale = scale
+        self.scale = scale      #set all required variables to their appropriate values
         self.color = color
         print(patterns)
         if patterns is None:
             patterns = [np.array([[2, 2, 2], [2, 0, 2], [2, 2, 2]], dtype=int)]
 
-        self.patterns = patterns
+        self.patterns = patterns            #set the default pattern if no patterns are present
         self.nbpattern = len(self.patterns)
         self.h, self.w = self.patterns[0].shape
         self.name = "Basic"
         self.i = 0
-        self.j = 0
+        self.j = 0  
         self.current_pattern = 0
         self.pixels = []
 
@@ -27,39 +27,39 @@ class Tetrominoes:
         self.i = i if i is not None else 0
         self.j = j if j is not None else random.randint(0, self.ncol - self.w)
         self.pixels = []
-        for i in range(self.h):
+        for i in range(self.h):         #"activate" the tetrimonoes by putting them on the window
             for j in range(self.w):
                 if self.patterns[self.current_pattern][i][j] != 0:
                     pixel = Pixel(self.canvas, self.i + i, self.j + j, self.nrow, self.ncol, self.scale, self.color)
                     self.pixels.append(pixel)
 
     def delete(self):
-        for pixel in self.pixels:
+        for pixel in self.pixels:       #delete pixel(s) if they are called
             pixel.delete()
 
     def rotate(self):
         self.current_pattern = (self.current_pattern + 1) % self.nbpattern
         self.delete()
-        self.activate(self.i, self.j)
+        self.activate(self.i, self.j)       #this simply rotates the tetrimono
 
     def up(self):
         self.i -= 1
-        self.delete()
+        self.delete()       #this moves the tetrimono up
         self.activate(self.i, self.j)
 
     def down(self):
         self.i += 1
-        self.delete()
+        self.delete()       #this moves the tetrimono down
         self.activate(self.i, self.j)
 
     def left(self):
         self.j -= 1
-        self.delete()
+        self.delete()       #... moves it left
         self.activate(self.i, self.j)
 
     def right(self):
         self.j += 1
-        self.delete()
+        self.delete()       #... moves it right
         self.activate(self.i, self.j)
     
     def get_pattern(self):
@@ -69,7 +69,7 @@ class Tetrominoes:
     def random_select(canv,nrow,ncol,scale):
         t1=TShape(canv,nrow,ncol,scale)
         t2=TripodA(canv,nrow,ncol,scale)
-        t3=TripodB(canv,nrow,ncol,scale)
+        t3=TripodB(canv,nrow,ncol,scale)        #selects a random tetrimono from the list
         t4=SnakeA(canv,nrow,ncol,scale)
         t5=SnakeB(canv,nrow,ncol,scale)
         t6=Cube(canv,nrow,ncol,scale)
@@ -85,9 +85,9 @@ class TShape(Tetrominoes):
         patterns = [
             np.array([[0, 1, 0], [0, 1, 0], [1, 1, 1]], dtype=int),
             np.array([[1, 0, 0], [1, 1, 1], [1, 0, 0]], dtype=int),
-            np.array([[1, 1, 1], [0, 1, 0], [0, 1, 0]], dtype=int),
-            np.array([[0, 0, 1], [1, 1, 1], [0, 0, 1]], dtype=int)
-        ]
+            np.array([[1, 1, 1], [0, 1, 0], [0, 1, 0]], dtype=int),     #all child classes have the same idea, 
+            np.array([[0, 0, 1], [1, 1, 1], [0, 0, 1]], dtype=int)      #set patterns for the specific tetromino
+        ]                                                              # and inherit from Tetrimono using super
         super().__init__(canvas, nrow, ncol, scale, color=3, patterns=patterns)
         self.name = "TShape"
 
@@ -96,7 +96,7 @@ class TripodA(Tetrominoes):
         patterns = [
             np.array([[0,2,0], [0,2,0], [2,0,2]], dtype=int),
             np.array([[2,0,0], [0,2,2], [2,0,0]], dtype=int),
-            np.array([[2,0,2], [0,2,0], [0,2,0]], dtype=int),
+            np.array([[2,0,2], [0,2,0], [0,2,0]], dtype=int),           #function stated above
             np.array([[0,0,2], [2,2,0], [0,0,2]], dtype=int)
         ]
         super().__init__(canvas, nrow, ncol, scale, color=4, patterns=patterns)
@@ -107,7 +107,7 @@ class TripodB(Tetrominoes):
         patterns = [
             np.array([[0, 1, 0], [1, 0, 1], [1, 0, 1]], dtype=int),
             np.array([[1, 1, 0], [0, 0, 1], [1, 1, 0]], dtype=int),
-            np.array([[1, 0, 1], [1, 0, 1], [0, 1, 0]], dtype=int),
+            np.array([[1, 0, 1], [1, 0, 1], [0, 1, 0]], dtype=int),     #function stated above
             np.array([[0, 1, 1], [1, 0, 0], [0, 1, 1]], dtype=int)
         ]
         super().__init__(canvas, nrow, ncol, scale, color=5, patterns=patterns)
@@ -117,7 +117,7 @@ class SnakeA(Tetrominoes):
     def __init__(self, canvas, nrow, ncol, scale):
         patterns = [
             np.array([[1, 1, 0], [0, 1, 0], [0, 1, 1]], dtype=int),
-            np.array([[0, 0, 1], [1, 1, 1], [1, 0, 0]], dtype=int)
+            np.array([[0, 0, 1], [1, 1, 1], [1, 0, 0]], dtype=int)     #function stated above
         ]
         super().__init__(canvas, nrow, ncol, scale, color=6, patterns=patterns)
         self.name = "SnakeA"
@@ -125,7 +125,7 @@ class SnakeA(Tetrominoes):
 class SnakeB(Tetrominoes):
     def __init__(self, canvas, nrow, ncol, scale):
         patterns = [
-            np.array([[0, 1, 1], [0, 1, 0], [1, 1, 0]], dtype=int),
+            np.array([[0, 1, 1], [0, 1, 0], [1, 1, 0]], dtype=int),      #function stated above
             np.array([[1, 0, 0], [1, 1, 1], [0, 0, 1]], dtype=int)
         ]
         super().__init__(canvas, nrow, ncol, scale, color=7, patterns=patterns)
@@ -134,7 +134,7 @@ class SnakeB(Tetrominoes):
 class Cube(Tetrominoes):
     def __init__(self, canvas, nrow, ncol, scale):
         patterns = [
-            np.array([[1, 1, 1], [1, 1, 1], [1, 1, 1]], dtype=int),
+            np.array([[1, 1, 1], [1, 1, 1], [1, 1, 1]], dtype=int),       #function stated above
             np.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]], dtype=int),
             np.array([[1, 0, 1], [0, 1, 0], [1, 0, 1]], dtype=int)
         ]
@@ -145,7 +145,7 @@ class Pencil(Tetrominoes):
     def __init__(self, canvas, nrow, ncol, scale):
         patterns = [
             np.array([[0, 0, 1], [0, 0, 1], [0, 0, 1]], dtype=int),
-            np.array([[0, 0, 0], [0, 0, 0], [1, 1, 1]], dtype=int),
+            np.array([[0, 0, 0], [0, 0, 0], [1, 1, 1]], dtype=int),       #function stated above
             np.array([[1, 0, 0], [1, 0, 0], [1, 0, 0]], dtype=int),
             np.array([[0, 0, 0], [0, 0, 0], [1, 1, 1]], dtype=int)
         ]
@@ -166,40 +166,40 @@ def test1(canvas,nrow,ncol,scale):
     tetro1=Tetrominoes(canvas,nrow,ncol,scale) # instantiate
     print("Tetro1",tetro1.name)
     print("  number of patterns:",tetro1.nbpattern)
-    print("  current pattern:\n",tetro1.get_pattern()) # retrieve current pattern
+    print("  current pattern:\n",tetro1.get_pattern()) # get current pattern
     print("  height/width:",tetro1.h,tetro1.w)
-    tetro1.activate(nrow//2,ncol//2)        # activate and put in the middle
+    tetro1.activate(nrow//2,ncol//2)        # activate and put on the grid
     print("  i/j coords:  ",tetro1.i,tetro1.j)
 
-    pattern=np.array([[0,3,0],[3,3,3],[0,3,0],[3,0,3],[3,0,3]]) # matrix motif
-    tetro2=Tetrominoes(canvas,nrow,ncol,scale,3,[pattern]) # instantiate (list of patterns-- 1 item here)
+    pattern=np.array([[0,3,0],[3,3,3],[0,3,0],[3,0,3],[3,0,3]]) # set the pattern for test1
+    tetro2=Tetrominoes(canvas,nrow,ncol,scale,3,[pattern]) # instantiate (list of patterns)
     print("\nTetro2",tetro2.name)
     print("  number of patterns:",tetro2.nbpattern)
-    print("  current pattern:\n",tetro2.get_pattern()) # retrieve current pattern
+    print("  current pattern:\n",tetro2.get_pattern()) # get current pattern
     print("  height/width:",tetro2.h,tetro2.w)
-    tetro2.activate()        # activate and place at random at the top
+    tetro2.activate()        # activate and place randomly at the top of the screen
     print("  i/j coords:  ",tetro2.i,tetro2.j)
     
 def test2(root,canvas,nrow,ncol,scale):
     print("Generate a 'square' Tetromino (with double shape) and rotate")
     
     print("My Tetro")
-    pattern1=np.array([[4,0,0],[0,4,0],[0,0,4]]) # matrix motif
-    pattern2=np.array([[0,0,4],[0,4,0],[4,0,0]]) # matrix motif
-    tetro=Tetrominoes(canvas,nrow,ncol,scale,4,[pattern1,pattern2]) # instantiate (list of patterns-- 2 items here)
+    pattern1=np.array([[4,0,0],[0,4,0],[0,0,4]]) # set the patters for this test
+    pattern2=np.array([[0,0,4],[0,4,0],[4,0,0]])
+    tetro=Tetrominoes(canvas,nrow,ncol,scale,4,[pattern1,pattern2]) # instantiate (list of patterns)
     print("  number of patterns:",tetro.nbpattern)
     print("  height/width:",tetro.h,tetro.w)
-    tetro.activate(nrow//2,ncol//2)        # activate and place in the middle
+    tetro.activate(nrow//2,ncol//2)        # activate and place randomly at the top of the screen
     print("  i/j coords:  ",tetro.i,tetro.j)
 
-    for k in range(10): # make 10 rotations
-        tetro.rotate() # rotate (change pattern)
+    for k in range(10):         # make 10 rotations using a for loop
+        tetro.rotate()          
         print("  current pattern:\n",tetro.get_pattern()) # retrieve current pattern
         root.update()
         time.sleep(0.5)
     tetro.delete() # delete tetro (delete every pixels)
 
-def rotate_all(tetros): #auxiliary routine
+def rotate_all(tetros):     #rotate all of tetros present
     for t in tetros:
         t.rotate()
        
@@ -213,13 +213,13 @@ def test3(root,canvas,nrow,ncol,scale):
     t4=SnakeA(canvas,nrow,ncol,scale)
     t5=SnakeB(canvas,nrow,ncol,scale)
     t6=Cube(canvas,nrow,ncol,scale)
-    t7=Pencil(canvas,nrow,ncol,scale)
-    tetros=[t0,t1,t2,t3,t4,t5,t6,t7]
+    t7=Pencil(canvas,nrow,ncol,scale)       # make em' dance!
+    tetros=[t0,t1,t2,t3,t4,t5,t6,t7]        # this just sets tetros to these patterns 
 
     for t in tetros:
         print(t.name)
 
-    # place the tetrominos
+                                    # place the tetrominos
     for i in range(4):
         for j in range(2):
             k=i*2+j

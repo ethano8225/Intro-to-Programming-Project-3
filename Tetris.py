@@ -5,9 +5,9 @@ import time
 
 class Tetris(Grid):
     def __init__(self, root, nrow, ncol, scale):
-        super().__init__(root, nrow, ncol, scale)
+        super().__init__(root, nrow, ncol, scale)   #take attributes from Grid
         self.block = None
-        self.game_over = False
+        self.game_over = False                      #set default values
         self.paused = 0
     def next(self):
         if self.block is None:  # If no block is active
@@ -15,18 +15,18 @@ class Tetris(Grid):
             self.block.activate()
         else:
             self.block.down()
-        self.stayinplace()
+        self.stayinplace()          #only move down block if it isnt a new block
 
     def stayinplace(self):
             i, j = self.block.i, self.block.j
 
-            # Check if the block is at the bottom or overlapping with another block
+    # Check if the block is at the bottom or overlapping with another block
             if i + self.block.h >= self.nrow or self.is_overlapping(i+1, j):
-                # Block is in place
+                # If statement above is true, block is in place
                 self.block.color = 1
                 pattern = self.block.get_pattern()
                 self.block.delete()
-                for r in range(self.block.h):
+                for r in range(self.block.h):       #add the pattern to the grid
                     for c in range(self.block.w):
                         if pattern[r][c] != 0:
                             if i+r > 19:
